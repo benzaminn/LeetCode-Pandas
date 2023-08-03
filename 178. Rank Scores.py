@@ -59,6 +59,22 @@ def order_scores(scores: pd.DataFrame) -> pd.DataFrame:
     scores['rank']=a
     return scores '''
 
+    
+    '''
+    scores = scores.sort_values('score',ascending = False)
+
+    serie = scores['score'].sort_values(ascending = False).drop_duplicates()
+    score_list = serie.tolist()
+
+    l = len(score_list)
+    num_list = np.arange(1,l+1)
+    dic = dict(zip(score_list,num_list))
+
+    scores['rank']= scores['score'].apply(lambda x:dic.get(x))
+
+    return scores[['score','rank']]   '''
+
+
 
 
 
