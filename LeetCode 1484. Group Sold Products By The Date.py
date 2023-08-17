@@ -29,14 +29,9 @@ import pandas as pd
 
 def categorize_products(activities: pd.DataFrame) -> pd.DataFrame:
 
-    group = activities.groupby("sell_date")
-
-    stats = group.agg(num_sold=('product','nunique'),products=('product',lambda x : ",".join(sorted(set(x))))).reset_index()
-
-    stats.sort_values("sell_date",inplace=True)
-
+    stats = activities.groupby("sell_date")['product'].agg([("num_sold","nunique"),("products",lambda x: ','.join(sorted(x.unique())))]).reset_index()
+    
     return stats
-
 
 
 
